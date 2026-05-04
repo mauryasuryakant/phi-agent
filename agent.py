@@ -82,9 +82,13 @@ def execute(action, inputs):
 
 
 def run_agent(task):
+    # phi4-mini - If the task is completed, DO NOT take another action.
+    # gemma4:e2b - You have tools that can perform actions. You MUST use them when appropriate. Do not simulate inability.
+    # gemma4:e2b - If the URL is well-known (e.g., github.com, youtube.com), directly use open_url without searching.
     prompt = f"""
 You are a STRICT ReAct agent.
-
+You have tools that can perform actions. You MUST use them when appropriate. Do not simulate inability.
+If the URL is well-known (e.g., github.com, youtube.com), directly use open_url without searching.
 RULES:
 1. ALWAYS use available tools to complete the task.
 2. You ARE capable of performing actions using tools. NEVER say you cannot.
